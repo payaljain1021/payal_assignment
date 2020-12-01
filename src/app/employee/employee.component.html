@@ -1,0 +1,164 @@
+<div class="main-content">
+    <div class="container-fluid">
+       
+        <!-- <style>
+            #view-source {
+                position: fixed;
+                z-index: 999;
+                display: block;
+                right: 40px;
+                top: 42px;
+            }
+        </style> -->
+
+     <div style="width: 100%"> 
+      <form [formGroup]="form" (ngSubmit)="submit()" class="sigin" >
+      <h3 class="text-center" style="padding:10px">Add Employee details</h3>
+      <div class="container">
+        <div class="form-group row">
+          <label for="Name" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-6">
+            <input formControlName="name" type="text"  class="form-control" id="FirstName">
+            <div *ngIf="form.get('name').invalid && form.get('name').touched" class="alert alert-danger">
+              <span *ngIf="form.get('name').hasError('required')">
+                * Name is required
+              </span>
+              <span *ngIf="form.get('name').hasError('whitespace')">
+               * Name cannot contain whitespace
+            </span>
+          </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="username" class="col-sm-2 col-form-label">Username</label>
+          <div class="col-sm-6">
+            <input formControlName="username" type="text" class="form-control" id="username">
+            <div *ngIf="form.get('username').invalid && form.get('username').touched" class="alert alert-danger">
+              <span *ngIf="form.get('username').hasError('required')">
+                * Username is required
+              </span>
+              <span *ngIf="form.get('username').hasError('whitespace')">
+               * Username cannot contain whitespace
+            </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-6">
+              <input formControlName="email" type="email"  class="form-control" id="staticEmail" value="email@example.com">
+            <div *ngIf="form.get('email').invalid && form.get('email').touched" class="alert alert-danger">
+              <span *ngIf="form.get('email').hasError('required')">
+                * Email is required
+              </span>
+           <span *ngIf="form.get('email').hasError('whitespace')">
+            * Email cannot contain whitespace
+           </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-6">
+              <input formControlName="phone" type="text"  class="form-control" id="phone" >
+            <div *ngIf="form.get('phone').invalid && form.get('phone').touched" class="alert alert-danger">
+              <span *ngIf="form.get('phone').hasError('required')">
+                * Phone Is Required
+             </span>
+             <span *ngIf="form.get('phone').hasError('whitespace')">
+              * Phone cannot contain whitespace
+             </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="website" class="col-sm-2 col-form-label">Website</label>
+            <div class="col-sm-6">
+              <input formControlName="website" type="text"  class="form-control" id="phone" >
+           
+            </div>
+          </div>
+         
+          <div class="form-group-row text-center">
+              <button  class="btn btn-primary">save</button>
+          </div>
+       </div>
+      </form>
+      </div>
+      
+        <div class="card">
+            <div class="card-header color" >
+                <h3 class="card-title" align="center" style="padding:10px"
+                >Employee List</h3>
+            </div>
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="username">
+                  <th mat-header-cell *matHeaderCellDef> username </th>
+                  <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef> email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="phone">
+                  <th mat-header-cell *matHeaderCellDef> phone </th>
+                  <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="website">
+                  <th mat-header-cell *matHeaderCellDef> website </th>
+                  <td mat-cell *matCellDef="let element"> {{element.website}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="company">
+                  <th mat-header-cell *matHeaderCellDef> company </th>
+                  <td mat-cell *matCellDef="let element"> {{element.company.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell *matHeaderCellDef> edit </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <button mat-button  color="green"  (click)="edittUser(element,element.id)">
+                      <i class="material-icons" role="presentation">
+                        edit</i>
+                      <span class="visuallyhidden"></span>
+                    </button> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef> delete </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <button mat-button  color="red" (click)="removeEmp(element.id)" >
+                      <i class="material-icons" role="presentation">delete</i>
+                      <span class="visuallyhidden"></span>
+                    </button> </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+        </div>
+        <!-- <button mat-button class="mat-fab" id="view-source" color="warn" routerLink="add-edit">
+          <i class="material-icons" role="presentation">add</i>
+          <span class="visuallyhidden"></span>
+        </button> -->
+    </div>
+</div>

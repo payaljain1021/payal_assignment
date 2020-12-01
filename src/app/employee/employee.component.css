@@ -1,0 +1,29 @@
+/* .div1{
+    margin: 10px;
+
+} */
+.h1{
+    background-color: #940461;
+}
+.h2{
+    color: white;
+    text-align: center;
+}
+.head{
+    text-align: center;
+}
+.mat-fab{
+    float: right;
+    right:26px;
+}
+table {
+    width: 100%;
+  }
+  .sigin{
+    margin:50px;
+    background-color :#f9f8f8;
+}
+.color{
+    background-color :#f9f8f8;
+    height: 50px;
+}
